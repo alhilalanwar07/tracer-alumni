@@ -14,5 +14,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // livewire
+// profil
+Route::get('/profil', App\Livewire\Profil::class)->name('profil');
+
     //admin.manajemen-user
     Route::get('/admin/manajemen-user', App\Livewire\Admin\ManajemenUser::class)->name('admin.manajemen-user');
