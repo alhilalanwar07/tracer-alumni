@@ -19,16 +19,12 @@
             <p class="mb-0"></p>
         </div>
         <div class="btn-toolbar mb-2 mb-md-0">
-            <a href="#" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
+            <button class="btn btn-sm btn-gray-800 d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modaTambah" wire:click="resetInput()">
                 <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                 </svg>
-                New Plan
-            </a>
-            <div class="btn-group ms-2 ms-lg-3">
-                <button type="button" class="btn btn-sm btn-outline-gray-600">Share</button>
-                <button type="button" class="btn btn-sm btn-outline-gray-600">Export</button>
-            </div>
+                Tambah Data
+            </button>
         </div>
     </div>
     <div class="table-settings mb-4">
@@ -79,11 +75,12 @@
             </div>
         </div>
     </div>
+
     <div class="card card-body border-0 shadow table-wrapper table-responsive">
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th class="border-gray-200">#</th>
+                    <th class="border-gray-200" style="width: 5%">#</th>
                     <th class="border-gray-200">Nama</th>
                     <th class="border-gray-200">Email</th>
                     <th class="border-gray-200">Role</th>
@@ -95,17 +92,17 @@
                 <tr>
                     <td>
                         <a href="#" class="fw-bold">
-                            {{ $user->id }}
+                            {{ ($loop->index) + (($users->currentPage() - 1) * $users->perPage()) + 1 }}
                         </a>
                     </td>
                     <td>
                         <span class="fw-normal">{{ $user->name }}</span>
                     </td>
                     <td><span class="fw-normal">{{ $user->email }}</span></td>
-                    <td><span class="fw-normal">{{ $user->role }}</span></td>
+                    <td><span class="fw-normal text-uppercase">{{ $user->role }}</span></td>
                     <td class="text-end">
-                        <a href="#" class="btn btn-info btn-sm btn-rounded">Edit</a>
-                        <a href="#" class="btn btn-danger btn-sm btn-rounded">Delete</a>
+                        <a href="# " class="btn btn-info btn-sm btn-rounded" wire:click.prevent="edit({{ $user->id }}) " data-bs-toggle="modal" data-bs-target="#modaEdit">Edit</a>
+                        <a href="#" wire:click.prevent="hapus({{ $user->id }})" class="btn btn-danger btn-sm btn-rounded">Delete</a>
                     </td>
                 </tr>
                 @endforeach
@@ -113,5 +110,91 @@
         </table>
         <div class="mt-2">{{ $users->links() }}</div>
     </div>
-
+    <!-- Modal Content -->
+    <div wire:ignore.self class="modal fade" id="modaTambah" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h2 class="h6 modal-title">Tambah User</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form>
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" wire:model="name">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" wire:model="email">
+                            @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" wire:model="password">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label">Role</label>
+                            <select class="form-select @error('role') is-invalid @enderror" wire:model="role">
+                                <option value="">-- Pilih Role --</option>
+                                <option value="admin">Admin</option>
+                                <option value="mahasiswa">Mahasiswa</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" wire:click="simpan()" @if($modal) data-bs-dismiss="modal" @endif>Simpan</button>
+                        <button type="button" class="btn btn-link text-gray-600 ms-auto" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div wire:ignore.self class="modal fade" id="modaEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h2 class="h6 modal-title">Update User</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form>
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" wire:model="name">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" wire:model="email">
+                            @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" wire:model="password" autocomplete="new-password">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label">Role</label>
+                            <select class="form-select @error('role') is-invalid @enderror" wire:model="role">
+                                <option value="">-- Pilih Role --</option>
+                                <option value="admin">Admin</option>
+                                <option value="mahasiswa">Mahasiswa</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" wire:click="update()" @if($modal) data-bs-dismiss="modal" @endif>Update</button>
+                        <button type="button" class="btn btn-link text-gray-600 ms-auto" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End of Modal Content -->
+    @livewire('alert')
 </div>

@@ -75,7 +75,7 @@
                             @csrf
                                 <!-- Form -->
                                 <div class="form-group mb-4">
-                                    <label for="email">Your Email</label>
+                                    <label for="email">Email</label>
                                     <div class="input-group">
                                         <span class="input-group-text" id="basic-addon1">
                                             <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -96,7 +96,7 @@
                                 <div class="form-group">
                                     <!-- Form -->
                                     <div class="form-group mb-4">
-                                        <label for="password">Your Password</label>
+                                        <label for="password">Password</label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon2">
                                                 <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -120,19 +120,19 @@
                                                 Remember me
                                             </label>
                                         </div> --}}
-                                        <div><a href="./forgot-password.html" class="small text-right">Lost password?</a></div>
+                                        {{-- <div><a href="./forgot-password.html" class="small text-right">Lost password?</a></div> --}}
                                     </div>
                                 </div>
                                 <div class="d-grid">
                                     <button type="submit" class="btn btn-gray-800">Sign in</button>
                                 </div>
                             </form>
-                            <div class="d-flex justify-content-center align-items-center mt-4">
+                            {{-- <div class="d-flex justify-content-center align-items-center mt-4">
                                 <span class="fw-normal">
                                     Not registered?
                                     <a href="./sign-up.html" class="fw-bold">Create account</a>
                                 </span>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
