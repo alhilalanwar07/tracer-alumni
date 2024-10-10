@@ -27,22 +27,22 @@
     <meta property="twitter:image" content="{{ url('/') }}">
 
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="120x120" href="{{ url('/') }}/assets/img/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url('/') }}/assets/img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url('/') }}/assets/img/favicon/favicon-16x16.png">
-    <link rel="manifest" href="{{ url('/') }}/assets/img/favicon/site.webmanifest">
-    <link rel="mask-icon" href="{{ url('/') }}/assets/img/favicon/safari-pinned-tab.svg" color="#000B69FF">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ url('/') }}/public/assets/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url('/') }}/public/assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url('/') }}/public/assets/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="{{ url('/') }}/public/assets/img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="{{ url('/') }}/public/assets/img/favicon/safari-pinned-tab.svg" color="#000B69FF">
     <meta name="msapplication-TileColor" content="#000B69FF">
     <meta name="theme-color" content="#000B69FF">
 
     <!-- Sweet Alert -->
-    <link type="text/css" href="{{ url('/') }}/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+    <link type="text/css" href="{{ url('/') }}/public/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
 
     <!-- Notyf -->
-    <link type="text/css" href="{{ url('/') }}/vendor/notyf/notyf.min.css" rel="stylesheet">
+    <link type="text/css" href="{{ url('/') }}/public/vendor/notyf/notyf.min.css" rel="stylesheet">
 
     <!-- Volt CSS -->
-    <link type="text/css" href="{{ url('/') }}/css/volt.css" rel="stylesheet">
+    <link type="text/css" href="{{ url('/') }}/public/css/volt.css" rel="stylesheet">
 
     <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
 
@@ -55,7 +55,7 @@
 
     <nav class="navbar navbar-dark navbar-theme-primary px-4 col-12 d-lg-none">
         <a class="navbar-brand me-lg-5" href="/home">
-            <img class="navbar-brand-dark" src="{{ url('/') }}/assets/img/brand/light.svg" alt="Volt logo" /> <img class="navbar-brand-light" src="{{ url('/') }}/assets/img/brand/dark.svg" alt="Volt logo" />
+            <img class="navbar-brand-dark" src="{{ url('/') }}/public/assets/img/brand/light.svg" alt="Volt logo" /> <img class="navbar-brand-light" src="{{ url('/') }}/public/assets/img/brand/dark.svg" alt="Volt logo" />
         </a>
         <div class="d-flex align-items-center">
             <button class="navbar-toggler d-lg-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +69,7 @@
             <div class="user-card d-flex d-md-none align-items-center justify-content-between justify-content-md-center pb-4">
                 <div class="d-flex align-items-center">
                     <div class="avatar-lg me-4">
-                        <img src="{{ url('/') }}/assets/img/team/profile-picture-3.jpg" class="card-img-top rounded-circle border-white" alt="Bonnie Green">
+                        <img src="{{ url('/') }}/public/assets/img/team/profile-picture-3.jpg" class="card-img-top rounded-circle border-white" alt="Bonnie Green">
                     </div>
                     <div class="d-block">
                         <h2 class="h5 mb-3">Hi,
@@ -98,7 +98,7 @@
                 <li class="nav-item">
                     <a href="/home" class="nav-link d-flex align-items-center">
                         <span class="sidebar-icon">
-                            <img src="{{ url('/') }}/assets/img/brand/light.svg" height="20" width="20" alt="Volt Logo">
+                            <img src="{{ url('/') }}/public/assets/img/brand/light.svg" height="20" width="20" alt="Volt Logo">
                         </span>
                         <span class="mt-1 ms-1 sidebar-text">USN-TracerStudy</span>
                     </a>
@@ -216,7 +216,7 @@
                         <li class="nav-item dropdown ms-lg-3">
                             <a class="nav-link dropdown-toggle pt-1 px-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="media d-flex align-items-center">
-                                    <img class="avatar rounded-circle" alt="Image placeholder" src="{{ url('/') }}/assets/img/team/profile-picture-3.jpg">
+                                    <img class="avatar rounded-circle" alt="Image placeholder" src="{{ url('/') }}/public/assets/img/team/profile-picture-3.jpg">
                                     <div class="media-body ms-2 text-dark align-items-center d-none d-lg-block">
                                         <span class="mb-0 font-small fw-bold text-gray-900">{{ Auth::check() ? Auth::user()->name : '' }}</span>
                                     </div>
@@ -260,45 +260,45 @@
     </main>
 
     <!-- Core -->
-    <script src="{{ url('/') }}/vendor/@popperjs/core/dist/umd/popper.min.js"></script>
-    <script src="{{ url('/') }}/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="{{ url('/') }}/public/vendor/@popperjs/core/dist/umd/popper.min.js"></script>
+    <script src="{{ url('/') }}/public/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <!-- Vendor JS -->
-    <script src="{{ url('/') }}/vendor/onscreen/dist/on-screen.umd.min.js"></script>
+    <script src="{{ url('/') }}/public/vendor/onscreen/dist/on-screen.umd.min.js"></script>
 
     <!-- Slider -->
-    <script src="{{ url('/') }}/vendor/nouislider/distribute/nouislider.min.js"></script>
+    <script src="{{ url('/') }}/public/vendor/nouislider/distribute/nouislider.min.js"></script>
 
     <!-- Smooth scroll -->
-    <script src="{{ url('/') }}/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+    <script src="{{ url('/') }}/public/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
 
     <!-- Charts -->
-    <script src="{{ url('/') }}/vendor/chartist/dist/chartist.min.js"></script>
-    <script src="{{ url('/') }}/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+    <script src="{{ url('/') }}/public/vendor/chartist/dist/chartist.min.js"></script>
+    <script src="{{ url('/') }}/public/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
 
     <!-- Datepicker -->
-    <script src="{{ url('/') }}/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
+    <script src="{{ url('/') }}/public/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
 
     <!-- Sweet Alerts 2 -->
-    <script src="{{ url('/') }}/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <script src="{{ url('/') }}/public/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
 
     <!-- Moment JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
 
     <!-- Vanilla JS Datepicker -->
-    <script src="{{ url('/') }}/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
+    <script src="{{ url('/') }}/public/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
 
     <!-- Notyf -->
-    <script src="{{ url('/') }}/vendor/notyf/notyf.min.js"></script>
+    <script src="{{ url('/') }}/public/vendor/notyf/notyf.min.js"></script>
 
     <!-- Simplebar -->
-    <script src="{{ url('/') }}/vendor/simplebar/dist/simplebar.min.js"></script>
+    <script src="{{ url('/') }}/public/vendor/simplebar/dist/simplebar.min.js"></script>
 
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
     <!-- Volt JS -->
-    <script src="{{ url('/') }}/assets/js/volt.js"></script>
+    <script src="{{ url('/') }}/public/assets/js/volt.js"></script>
 
 
 </body>
