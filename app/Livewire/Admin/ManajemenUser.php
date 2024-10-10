@@ -137,6 +137,16 @@ class ManajemenUser extends Component
 
     public function hapus($id)
     {
+        if ($id == auth()->user()->id) {
+            $this->dispatch('hapusAlert', [
+            'title'     => 'Hapus data gagal',
+            'text'      => 'Anda tidak dapat menghapus akun Anda sendiri',
+            'type'      => 'error',
+            'timeout'   => 2000
+            ]);
+            return;
+        }
+
         User::find($id)->delete();
 
         $this->dispatch('hapusAlert', [
