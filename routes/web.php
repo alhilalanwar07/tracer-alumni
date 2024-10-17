@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\{Route, Auth};
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 // disable register, reset password
 Auth::routes(['register' => false, 'reset' => false]);
@@ -15,19 +15,16 @@ Auth::routes();
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // livewire
 // profil
-Route::get('/profil', App\Livewire\Profil::class)->name('profil');
 
-    Route::middleware(['auth'])->group(function () {
-        //admin.manajemen-user
-        Route::get('/admin/manajemen-user', App\Livewire\Admin\ManajemenUser::class)->name('admin.manajemen-user');
-        // admin.dashboard
-        Route::get('/home', App\Livewire\Admin\Dashboard::class)->name('admin.dashboard');
-        // admin.mahasiswa
-        Route::get('/mahasiswa', App\Livewire\Admin\Mahasiswa::class)->name('admin.mahasiswa');
-        // admin.masastudi
-        Route::get('/masa-studi', App\Livewire\Admin\Masastudi::class)->name('admin.masastudi');
-        // admin.laporan
-        Route::get('/laporan-grafik', App\Livewire\Admin\Laporan::class)->name('admin.laporan');
-        // admin.riwayatpekerjaan
-        Route::get('/riwayat-pekerjaan', App\Livewire\Admin\Riwayatpekerjaan::class)->name('admin.riwayatpekerjaan');
-    });
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profil', App\Livewire\Profil::class)->name('profil');
+    Route::get('/admin/manajemen-user', App\Livewire\Admin\ManajemenUser::class)->name('admin.manajemen-user');
+    // admin.dashboard
+    Route::get('/home', App\Livewire\Admin\Dashboard::class)->name('admin.dashboard');
+    // admin.mahasiswa
+    Route::get('/mahasiswa', App\Livewire\Admin\Mahasiswa::class)->name('admin.mahasiswa');
+    Route::get('/fakultas', App\Livewire\Admin\DataFakultas::class)->name('admin.fakultas');
+    Route::get('/prodi', App\Livewire\Admin\DataProdi::class)->name('admin.prodi');
+    Route::get('/alumni', App\Livewire\Admin\DataAlumni::class)->name('admin.alumni');
+    Route::get('/periode-wisuda', App\Livewire\Admin\DataPeriode::class)->name('admin.periode');
+});
