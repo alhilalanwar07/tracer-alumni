@@ -64,8 +64,15 @@
                 @enderror
                 <button type="submit" class="login-button">Login</button>
             </form>
+            <br>
+            <p class="mt-2">Belum Punya Akun? <a href="{{ route('alumni.register') }}">Register</a></p>
         </div>
     </div>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.</p>
+        </div>
+    </footer>
     <script src="scripts_login.js"></script>
 </body>
 

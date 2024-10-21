@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <!-- Primary Meta Tags -->
-    <title>{{ config('app.name') }}</title>
+    <title>{{ $title ?? null }} | {{ config('app.name') }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="title" content="{{ config('app.name') }}">
     <meta name="author" content="FTI USN KOLAKA">
@@ -37,43 +37,23 @@
 
     <link href="{{ asset('styles_login.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link type="text/css" href="{{ url('/') }}/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
 
+    @livewireStyles()
 </head>
 
 <body>
-    <div class="login-container">
-        <div class="login-card">
-            <div class="login-logo">
-                <img src="{{ url('/') }}/simpatik.png" alt="Logo">
-            </div>
-            <h2>Silahkan Login</h2>
-            <form class="login-form" method="POST" action="{{ route('login') }}">
-                @csrf
-                <input id="email" type="email" class="@error('email') is-invalid @enderror" name="email" placeholder="Masukkan Email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                @error('email')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror<input id="password" type="password" class="@error('password') is-invalid @enderror" placeholder="Masukkan Password" name="password" required autocomplete="current-password">
-
-                @error('password')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-                <button type="submit" class="login-button">Login</button>
-            </form>
-            <br>
-            <p class="mt-2">Belum Punya Akun? <a href="{{ route('alumni.register') }}">Register</a></p>
-        </div>
-    </div>
+    {{ $slot }}
     <footer class="footer">
         <div class="container">
             <p>&copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.</p>
         </div>
     </footer>
     <script src="scripts_login.js"></script>
+    <!-- Sweet Alerts 2 -->
+    <script src="{{ url('/') }}/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    @livewireScripts()
 </body>
 
 </html>

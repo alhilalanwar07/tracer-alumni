@@ -8,7 +8,9 @@ use App\Models\Prodi;
 use App\Models\Alumni;
 use App\Models\Wisuda;
 use App\Models\Fakultas;
+use App\Models\Kuisioner;
 use Illuminate\Database\Seeder;
+use App\Models\KategoriKuisioner;
 
 class DatabaseSeeder extends Seeder
 {
@@ -104,6 +106,19 @@ class DatabaseSeeder extends Seeder
             'user_id' => 2,
             'wisuda_id' => 1,
             'prodi_id' => 2,
+        ]);
+
+        // buat data kategori_kuisioner : belum-bekerja, sudah-bekerja, dan study-lanjut
+        KategoriKuisioner::create([
+            'nama_kategori' => 'belum-bekerja',
+        ]);
+
+        KategoriKuisioner::create([
+            'nama_kategori' => 'sudah-bekerja',
+        ]);
+
+        KategoriKuisioner::create([
+            'nama_kategori' => 'study-lanjut',
         ]);
 
     }

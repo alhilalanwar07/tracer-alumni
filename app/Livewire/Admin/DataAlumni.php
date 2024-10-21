@@ -87,97 +87,97 @@ class DataAlumni extends Component
     }
 
     public function simpan()
-{
-    $this->validate([
-        'nama' => 'required',
-        'nim' => 'required',
-        'tanggal_lahir' => 'required',
-        'jenis_kelamin' => 'required',
-        'agama' => 'required',
-        'alamat' => 'required',
-        'no_hp' => 'required',
-        'email' => 'required|email|unique:alumnis,email',
-        'judul_skripsi' => 'required',
-        'ipk' => 'required',
-        'tahun_masuk' => 'required',
-        'keterangan' => 'required',
-        'wisuda_id' => 'required',
-        'prodi_id' => 'required',
-    ], [
-        'nama.required' => 'Nama tidak boleh kosong',
-        'nim.required' => 'NIM tidak boleh kosong',
-        'tanggal_lahir.required' => 'Tanggal Lahir tidak boleh kosong',
-        'jenis_kelamin.required' => 'Jenis Kelamin tidak boleh kosong',
-        'agama.required' => 'Agama tidak boleh kosong',
-        'alamat.required' => 'Alamat tidak boleh kosong',
-        'no_hp.required' => 'No HP tidak boleh kosong',
-        'email.required' => 'Email tidak boleh kosong',
-        'judul_skripsi.required' => 'Judul Skripsi tidak boleh kosong',
-        'ipk.required' => 'IPK tidak boleh kosong',
-        'tahun_masuk.required' => 'Tahun Masuk tidak boleh kosong',
-        'keterangan.required' => 'Keterangan tidak boleh kosong',
-        'wisuda_id.required' => 'Wisuda ID tidak boleh kosong',
-        'prodi_id.required' => 'Prodi ID tidak boleh kosong',
-    ]);
-
-    // Jika foto diisi
-    if ($this->foto) {
+    {
         $this->validate([
-            'foto' => 'image', // 1MB Max
+            'nama' => 'required',
+            'nim' => 'required',
+            'tanggal_lahir' => 'required',
+            'jenis_kelamin' => 'required',
+            'agama' => 'required',
+            'alamat' => 'required',
+            'no_hp' => 'required',
+            'email' => 'required|email|unique:alumnis,email',
+            'judul_skripsi' => 'required',
+            'ipk' => 'required',
+            'tahun_masuk' => 'required',
+            'keterangan' => 'required',
+            'wisuda_id' => 'required',
+            'prodi_id' => 'required',
+        ], [
+            'nama.required' => 'Nama tidak boleh kosong',
+            'nim.required' => 'NIM tidak boleh kosong',
+            'tanggal_lahir.required' => 'Tanggal Lahir tidak boleh kosong',
+            'jenis_kelamin.required' => 'Jenis Kelamin tidak boleh kosong',
+            'agama.required' => 'Agama tidak boleh kosong',
+            'alamat.required' => 'Alamat tidak boleh kosong',
+            'no_hp.required' => 'No HP tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',
+            'judul_skripsi.required' => 'Judul Skripsi tidak boleh kosong',
+            'ipk.required' => 'IPK tidak boleh kosong',
+            'tahun_masuk.required' => 'Tahun Masuk tidak boleh kosong',
+            'keterangan.required' => 'Keterangan tidak boleh kosong',
+            'wisuda_id.required' => 'Wisuda ID tidak boleh kosong',
+            'prodi_id.required' => 'Prodi ID tidak boleh kosong',
         ]);
 
-        $imageName = \Str::slug($this->nama, '_').'_'.time().'.'.$this->foto->extension();
-        $this->foto->storeAs('public/alumni', $imageName);
-    } else {
-        $imageName = "no_image.jpg";
-    }
+        // Jika foto diisi
+        if ($this->foto) {
+            $this->validate([
+                'foto' => 'image', // 1MB Max
+            ]);
 
-    // Cek apakah user sudah ada berdasarkan email
-    $user = User::where('email', $this->email)->first();
+            $imageName = \Str::slug($this->nama, '_').'_'.time().'.'.$this->foto->extension();
+            $this->foto->storeAs('public/alumni', $imageName);
+        } else {
+            $imageName = "no_image.jpg";
+        }
 
-    if (!$user) {
-        // Jika user tidak ditemukan, buat user baru
-        $user = User::create([
-            'name' => $this->nama,
+        // Cek apakah user sudah ada berdasarkan email
+        $user = User::where('email', $this->email)->first();
+
+        if (!$user) {
+            // Jika user tidak ditemukan, buat user baru
+            $user = User::create([
+                'name' => $this->nama,
+                'email' => $this->email,
+                'password' => bcrypt('12345678'),
+                'role' => 'alumni',
+            ]);
+
+            // Kirim email notifikasi (pastikan email setting sudah benar)
+            \Mail::to($user->email)->send(new \App\Mail\WelcomeAlumni($user));
+        }
+
+        // Simpan data Alumni dengan user_id
+        Alumni::create([
+            'nama' => $this->nama,
+            'nim' => $this->nim,
+            'tanggal_lahir' => $this->tanggal_lahir,
+            'jenis_kelamin' => $this->jenis_kelamin,
+            'agama' => $this->agama,
+            'alamat' => $this->alamat,
+            'no_hp' => $this->no_hp,
             'email' => $this->email,
-            'password' => bcrypt('12345678'),
-            'role' => 'alumni',
+            'foto' => $imageName,
+            'judul_skripsi' => $this->judul_skripsi,
+            'ipk' => $this->ipk,
+            'tahun_masuk' => $this->tahun_masuk,
+            'keterangan' => $this->keterangan,
+            'wisuda_id' => $this->wisuda_id,
+            'prodi_id' => $this->prodi_id,
+            'user_id' => $user->id, // Assign user_id dari user yang sudah ditemukan atau dibuat
         ]);
 
-        // Kirim email notifikasi (pastikan email setting sudah benar)
-        \Mail::to($user->email)->send(new \App\Mail\WelcomeAlumni($user));
+        // Jika berhasil di tambah
+        $this->dispatch('tambahAlert', [
+            'title'     => 'Simpan data berhasil',
+            'text'      => 'Data Alumni Berhasil Ditambahkan',
+            'type'      => 'success',
+            'timeout'   => 1000
+        ]);
+
+        $this->resetInput();
     }
-
-    // Simpan data Alumni dengan user_id
-    Alumni::create([
-        'nama' => $this->nama,
-        'nim' => $this->nim,
-        'tanggal_lahir' => $this->tanggal_lahir,
-        'jenis_kelamin' => $this->jenis_kelamin,
-        'agama' => $this->agama,
-        'alamat' => $this->alamat,
-        'no_hp' => $this->no_hp,
-        'email' => $this->email,
-        'foto' => $imageName,
-        'judul_skripsi' => $this->judul_skripsi,
-        'ipk' => $this->ipk,
-        'tahun_masuk' => $this->tahun_masuk,
-        'keterangan' => $this->keterangan,
-        'wisuda_id' => $this->wisuda_id,
-        'prodi_id' => $this->prodi_id,
-        'user_id' => $user->id, // Assign user_id dari user yang sudah ditemukan atau dibuat
-    ]);
-
-    // Jika berhasil di tambah
-    $this->dispatch('tambahAlert', [
-        'title'     => 'Simpan data berhasil',
-        'text'      => 'Data Alumni Berhasil Ditambahkan',
-        'type'      => 'success',
-        'timeout'   => 1000
-    ]);
-
-    $this->resetInput();
-}
 
 
     public function edit($id)
@@ -219,7 +219,6 @@ class DataAlumni extends Component
             'ipk' => 'required',
             'tahun_masuk' => 'required',
             'keterangan' => 'required',
-            'user_id' => 'required',
             'wisuda_id' => 'required',
             'prodi_id' => 'required',
         ]);
@@ -238,7 +237,6 @@ class DataAlumni extends Component
             'ipk' => $this->ipk,
             'tahun_masuk' => $this->tahun_masuk,
             'keterangan' => $this->keterangan,
-            'user_id' => $this->user_id,
             'wisuda_id' => $this->wisuda_id,
             'prodi_id' => $this->prodi_id,
         ]);

@@ -10,6 +10,8 @@ class Alumni extends Model
 {
     use HasFactory;
 
+    protected $table = 'alumnis';
+
     protected $fillable = [
         'nama',
         'nim',
@@ -64,11 +66,17 @@ class Alumni extends Model
         return ucwords($value);
     }
 
+    public function getKeteranganAttribute($value)
+    {
+        return ucwords($value);
+    }
+
     // JIKA FOTO KOSONG, ISI DENGAN no_image.jpg
     public function getFotoAttribute($value)
     {
         return $value ? $value : 'no_image.jpg';
     }
+
 
     // buatkan user baru ketika membuat data alumni dengan email yang sama dan password default 12345678 dan kirim email notifikasi
     // protected static function boot()
@@ -93,5 +101,17 @@ class Alumni extends Model
     //         $alumni->user_id = $user->id;
     //     });
     // }
+
+    // Relasi ke tabel `jawaban`
+    public function jawaban()
+    {
+        return $this->hasMany(Jawaban::class);
+    }
+
+    // Relasi ke tabel `respon_kuisioner`
+    public function responKuisioner()
+    {
+        return $this->hasMany(ResponKuisioner::class);
+    }
 
 }

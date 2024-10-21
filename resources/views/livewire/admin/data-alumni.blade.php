@@ -66,7 +66,9 @@
                             {{ ($loop->index) + (($alumni->currentPage() - 1) * $alumni->perPage()) + 1 }}
                         </a>
                     </td>
-                    <td><span class="fw-normal">{{ $alumniItem->foto }}</span></td>
+                    <td>
+                            <img src="{{ asset($alumniItem->foto) }}" alt="Foto" style="width: 50px; height: 50px; object-fit: cover;" class="rounded">
+                    </td>
                     <td><span class="fw-normal">{{ $alumniItem->nama }} <br> {{ $alumniItem->nim }}</span> <br> <span class="badge bg-primary">{{ $alumniItem->keterangan }}</span></td>
                     <td><span class="fw-normal">{{ $alumniItem->tanggal_lahir }} <br> {{ $alumniItem->jenis_kelamin }} <br> {{ $alumniItem->agama }}</span></td>
                     <td><span class="fw-normal">{{ $alumniItem->alamat }} <br> {{ $alumniItem->no_hp }} <br> {{ $alumniItem->email }}</span></td>
@@ -139,7 +141,15 @@
                         <!-- Agama -->
                         <div class="form-group mb-3">
                             <label class="form-label">Agama</label>
-                            <input type="text" class="form-control @error('agama') is-invalid @enderror" wire:model="agama">
+                            <select class="form-control @error('agama') is-invalid @enderror" wire:model="agama">
+                                <option value="">Pilih Agama</option>
+                                <option value="Islam">Islam</option>
+                                <option value="Kristen">Kristen</option>
+                                <option value="Katolik">Katolik</option>
+                                <option value="Hindu">Hindu</option>
+                                <option value="Buddha">Buddha</option>
+                                <option value="Konghucu">Konghucu</option>
+                            </select>
                         </div>
                         <!-- Judul Skripsi -->
                         <div class="form-group mb-3">
@@ -149,17 +159,27 @@
                         <!-- IPK -->
                         <div class="form-group mb-3">
                             <label class="form-label">IPK</label>
-                            <input type="text" class="form-control @error('ipk') is-invalid @enderror" wire:model="ipk">
+                            <input type="number" step="0.01" class="form-control @error('ipk') is-invalid @enderror" wire:model="ipk">
                         </div>
                         <!-- Tahun Masuk -->
                         <div class="form-group mb-3">
                             <label class="form-label">Tahun Masuk</label>
-                            <input type="text" class="form-control @error('tahun_masuk') is-invalid @enderror" wire:model="tahun_masuk">
+                            <select class="form-control @error('tahun_masuk') is-invalid @enderror" wire:model="tahun_masuk">
+                                <option value="">Pilih Tahun Masuk</option>
+                                @for ($year = 2015; $year <= now()->year; $year++)
+                                    <option value="{{ $year }}">{{ $year }}</option>
+                                @endfor
+                            </select>
                         </div>
                         <!-- Keterangan -->
                         <div class="form-group mb-3">
-                            <label class="form-label">Keterangan</label>
-                            <input type="text" class="form-control @error('keterangan') is-invalid @enderror" wire:model="keterangan">
+                            <label class="form-label">Status Saat Ini</label>
+                            <select class="form-control @error('keterangan') is-invalid @enderror" wire:model="keterangan">
+                                <option value="">Pilih Keterangan</option>
+                                <option value="belum bekerja">Belum Bekerja</option>
+                                <option value="sudah bekerja">Sudah Bekerja</option>
+                                <option value="study lanjut">Study Lanjut</option>
+                            </select>
                         </div>
                         <!-- Wisuda -->
                         <div class="form-group mb-3">
