@@ -37,7 +37,6 @@
 
     <link href="{{ asset('styles_login.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <!-- Sweet Alert -->
     <link type="text/css" href="{{ url('/') }}/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
 
     @livewireStyles()
@@ -50,8 +49,7 @@
             <p>&copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.</p>
         </div>
     </footer>
-    <script src="scripts_login.js"></script>
-    <!-- Sweet Alerts 2 -->
+    <script src="{{ url('/') }}/scripts_login.js"></script>
     <script src="{{ url('/') }}/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
     @livewireScripts()
 </body>

@@ -6,6 +6,7 @@ use App\Models\Jawaban;
 use Livewire\Component;
 use App\Models\Kuisioner;
 use Livewire\WithPagination;
+use App\Models\ResponKuisioner;
 use App\Models\KategoriKuisioner;
 
 class AdminKuisionerStudyLanjut extends Component
@@ -24,9 +25,11 @@ class AdminKuisionerStudyLanjut extends Component
     public $search = '';
     public $perpage = 10;
 
+    public $responseDetails = [];
+
     public function mount()
     {
-        $this->kategoriStudyLanjut = KategoriKuisioner::where('nama_kategori', 'study-lanjut')->first();
+        $this->kategoriStudyLanjut = KategoriKuisioner::where('nama_kategori', 'study lanjut')->first();
     }
 
     public function saveKuisioner()
@@ -83,6 +86,7 @@ class AdminKuisionerStudyLanjut extends Component
 
         return view('livewire.admin-kuisioner-study-lanjut', [
             'kuisioners' => $kuisioners,
+            'responses' => ResponKuisioner::where('kategori_id', $this->kategoriStudyLanjut->id)->orderBy('created_at', 'DESC')->paginate($this->perpage),
         ])->layout('components.layouts.app', ['title' => 'Kuisioner Study Lanjut']);
     }
 
@@ -128,4 +132,17 @@ class AdminKuisionerStudyLanjut extends Component
             'timeout' => 1000
         ]);
     }
+
+    public function showResponse($id)
+    {
+        // dapatkan id respon kuisioner
+        $respon = ResponKuisioner::find($id);
+
+        // dapatkan jawaban sesuai dengan tanggal respon dan created_at, juga dengan kategori_id
+        $this->responseDetails = Jawaban::where('created_at', $respon->tanggal_respon)
+            ->get();
+
+        $this->modal = true;
+    }
+
 }

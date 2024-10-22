@@ -81,6 +81,7 @@
             <thead>
                 <tr>
                     <th class="border-gray-200" style="width: 5%">#</th>
+                    <th class="border-gray-200">Dekan</th>
                     <th class="border-gray-200">Nama Fakultas</th>
                     <th class="border-gray-200">Slug</th>
                     <th class="border-gray-200" style="width: 10%">Action</th>
@@ -93,6 +94,9 @@
                         <a href="#" class="fw-bold">
                             {{ ($loop->index) + (($fakultas->currentPage() - 1) * $fakultas->perPage()) + 1 }}
                         </a>
+                    </td>
+                    <td>
+                        <span class="fw-normal">{{ $fakultasItem->user->name }}</span>
                     </td>
                     <td>
                         <span class="fw-normal">{{ $fakultasItem->nama }}</span>
@@ -123,7 +127,15 @@
                             <label class="form-label">Nama Fakultas</label>
                             <input type="text" class="form-control @error('nama') is-invalid @enderror" wire:model="nama">
                         </div>
-
+                        <div class="form-group mb-3">
+                            <label class="form-label">Dekan</label>
+                            <select class="form-select @error('dekan') is-invalid @enderror" wire:model="dekan">
+                                <option value="">-- Pilih Dekan --</option>
+                                @foreach ($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" wire:click="simpan()" @if($modal) data-bs-dismiss="modal" @endif>Simpan</button>
@@ -147,7 +159,6 @@
                             <label class="form-label">Nama Fakultas</label>
                             <input type="text" class="form-control @error('nama') is-invalid @enderror" wire:model="nama">
                         </div>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-info" wire:click="update()" @if($modal) data-bs-dismiss="modal" @endif>Update</button>

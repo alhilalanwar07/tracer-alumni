@@ -121,15 +121,33 @@
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content ">
                     <div class="modal-header">
-                        <h2 class="h6 modal-title">Tambah Fakultas</h2>
+                        <h2 class="h6 modal-title">Tambah Program Studi</h2>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form>
                         @csrf
                         <div class="modal-body">
                             <div class="form-group mb-3">
-                                <label class="form-label">Nama Fakultas</label>
+                                <label class="form-label">Nama Prodi</label>
                                 <input type="text" class="form-control @error('nama') is-invalid @enderror" wire:model="nama">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label mb-0">Fakultas</label>
+                                <select class="form-select @error('fakultas_id') is-invalid @enderror" wire:model="fakultas_id">
+                                    <option value="">-- Pilih Fakultas --</option>
+                                    @foreach ($fakultas as $fakultasItem)
+                                    <option value="{{ $fakultasItem->id }}">{{ $fakultasItem->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label mb-0">Kaprodi</label>
+                                <select class="form-select @error('user_id') is-invalid @enderror" wire:model="user_id">
+                                    <option value="">-- Pilih Kaprodi --</option>
+                                    @foreach ($users as $user)
+                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="modal-footer">

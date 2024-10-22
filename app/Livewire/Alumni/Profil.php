@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Alumni;
 
+use App\Models\User;
 use App\Models\Alumni;
 use App\Models\Wisuda;
 use Livewire\Component;
@@ -10,6 +11,7 @@ class Profil extends Component
 {
     protected $alumni;
     public $updateMode = false;
+    public $updatePasswordMode = false;
 
     public $nama_edit;
     public $nim_edit;
@@ -27,6 +29,9 @@ class Profil extends Component
     public $user_id;
     public $wisuda_id;
     public $prodi_id, $alumni_id;
+    public $password, $password_confirmation;
+     public $new_password;
+    public $new_password_confirmation;
 
 
     public function mount()
@@ -129,4 +134,44 @@ class Profil extends Component
 
     //     $this->updateMode = false;
     // }
+
+    public function editPassword()
+    {
+        $this->updatePasswordMode = true;
+    }
+
+    public function updatePassword()
+    {
+        $this->validate([
+            'new_password' => 'required|min:8|confirmed',
+        ]);
+
+        User::find(auth()->id())->update([
+            'password' => bcrypt($this->new_password),
+        ]);
+
+        $this->dispatch('tambahAlert', [
+            'title' => 'Update Password Berhasil',
+            'text' => 'Password Berhasil Diupdate',
+            'type' => 'success',
+            'timeout' => 1000
+        ]);
+
+        $this->reset('new_password', 'new_password_confirmation');
+
+        $this->updatePasswordMode = false;
+
+        // logout
+        auth()->logout();
+        return redirect('/login');
+    }
+
+    public function cancelUpdatePassword()
+    {
+        $this->reset('new_password', 'new_password_confirmation');
+
+        $this->updatePasswordMode = false;
+
+        return redirect()->to('/alumni/profil');
+    }
 }

@@ -141,7 +141,10 @@
                             <select class="form-select @error('role') is-invalid @enderror" wire:model="role">
                                 <option value="">-- Pilih Role --</option>
                                 <option value="admin">Admin</option>
-                                <option value="mahasiswa">Mahasiswa</option>
+                                <option value="alumni">Mahasiswa</option>
+                                <option value="dekan">Dekan</option>
+                                <option value="kaprodi">Kaprodi</option>
+                                <option value="wd3">Wakil Dekan 3</option>
                             </select>
                         </div>
                     </div>
@@ -177,13 +180,17 @@
                         <div class="form-group mb-3">
                             <label class="form-label">Password</label>
                             <input type="password" class="form-control @error('password') is-invalid @enderror" wire:model="password" autocomplete="new-password">
+                            <small class="text-muted">* Kosongkan jika tidak ingin mengubah</small>
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label">Role</label>
                             <select class="form-select @error('role') is-invalid @enderror" wire:model="role">
                                 <option value="">-- Pilih Role --</option>
                                 <option value="admin">Admin</option>
-                                <option value="mahasiswa">Mahasiswa</option>
+                                <option value="alumni">Mahasiswa</option>
+                                <option value="dekan">Dekan</option>
+                                <option value="kaprodi">Kaprodi</option>
+                                <option value="wd3">Wakil Dekan 3</option>
                             </select>
                         </div>
                     </div>

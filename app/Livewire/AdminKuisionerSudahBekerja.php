@@ -6,6 +6,7 @@ use App\Models\Jawaban;
 use Livewire\Component;
 use App\Models\Kuisioner;
 use Livewire\WithPagination;
+use App\Models\ResponKuisioner;
 use App\Models\KategoriKuisioner;
 
 class AdminKuisionerSudahBekerja extends Component
@@ -19,14 +20,15 @@ class AdminKuisionerSudahBekerja extends Component
     public $editId = null;
     public $kategoriSudahBekerja;
 
-
     public $modal = true;
     public $search = '';
     public $perpage = 10;
 
+    public $responseDetails = [];
+
     public function mount()
     {
-        $this->kategoriSudahBekerja = KategoriKuisioner::where('nama_kategori', 'sudah-bekerja')->first();
+        $this->kategoriSudahBekerja = KategoriKuisioner::where('nama_kategori', 'sudah bekerja')->first();
     }
 
     public function saveKuisioner()
@@ -83,6 +85,7 @@ class AdminKuisionerSudahBekerja extends Component
 
         return view('livewire.admin-kuisioner-sudah-bekerja', [
             'kuisioners' => $kuisioners,
+            'responses' => ResponKuisioner::where('kategori_id', $this->kategoriSudahBekerja->id)->orderBy('created_at', 'DESC')->paginate($this->perpage),
         ])->layout('components.layouts.app', ['title' => 'Kuisioner Sudah Bekerja']);
     }
 
@@ -127,5 +130,17 @@ class AdminKuisionerSudahBekerja extends Component
             'type' => 'success',
             'timeout' => 1000
         ]);
+    }
+
+    public function showResponse($id)
+    {
+        // dapatkan id respon kuisioner
+        $respon = ResponKuisioner::find($id);
+
+        // dapatkan jawaban sesuai dengan tanggal respon dan created_at, juga dengan kategori_id
+        $this->responseDetails = Jawaban::where('created_at', $respon->tanggal_respon)
+            ->get();
+
+        $this->modal = true;
     }
 }

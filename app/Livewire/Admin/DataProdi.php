@@ -42,6 +42,7 @@ class DataProdi extends Component
             'prodi' => Prodi::orderBy('created_at', 'DESC')->where('nama', 'like', '%'.$this->search.'%')->paginate($this->perpage),
             'fakultas' => Fakultas::orderBy('nama', 'ASC')->get(),
             'user' => User::orderBy('name', 'ASC')->get(),
+            'users' => User::where('role', 'kaprodi')->whereNotIn('id', Prodi::pluck('user_id'))->get(),
         ])->title('Data Prodi');
     }
 

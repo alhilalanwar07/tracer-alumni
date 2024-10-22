@@ -5,23 +5,24 @@ namespace App\Livewire\Alumni;
 use App\Models\Alumni;
 use Livewire\Component;
 use App\Models\ResponKuisioner;
+use App\Models\KategoriKuisioner;
 
 class Dashboard extends Component
 {
     public function render()
     {
-        return view('livewire.alumni.dashboard',[
-            'responses' => ResponKuisioner::where('alumni_id', Alumni::where('user_id', auth()->id())->first()->id)->get(),
-            'alumnis' => Alumni::orderBy('nama', 'asc')->get(),
-            'alumni' => Alumni::where('user_id', auth()->id())->first(),
-            'isDataComplete' => $this->cekKelengkapanData(),
-            'dataDiri' => Alumni::where('user_id', auth()->id())->first(),
-            'hasFilledQuestionnaire' => $this->hasFilledQuestionnaire(),
-        ])->layout('layouts.app', ['title' => 'Alumni Dashboard']);
+            return view('livewire.alumni.dashboard',[
+                'responses' => ResponKuisioner::where('alumni_id', Alumni::where('user_id', auth()->id())->first()->id)->get(),
+                'alumnis' => Alumni::orderBy('nama', 'asc')->get(),
+                'alumni' => Alumni::where('user_id', auth()->id())->first(),
+                'isDataComplete' => $this->cekKelengkapanData(),
+                'dataDiri' => Alumni::where('user_id', auth()->id())->first(),
+                'hasFilledQuestionnaire' => $this->hasFilledQuestionnaire(),
+            ])->layout('layouts.app', ['title' => 'Alumni Dashboard']);
     }
 
     // function cek kelengkapan data di table alumni
-    public function cekKelengkapanData()
+    private function cekKelengkapanData()
     {
         $alumni = Alumni::where('user_id', auth()->id())->first();
         if (!$alumni) {
@@ -56,10 +57,12 @@ class Dashboard extends Component
         return true;
     }
 
-    public function hasFilledQuestionnaire()
+    private function hasFilledQuestionnaire()
     {
         // cek di tabel respon_kuisioner apakah alumni sudah pernah mengisi kuisioner
         $alumni = Alumni::where('user_id', auth()->id())->first();
+
+        // ambil data respon kuisioner berdasarkan alumni_id
         $responKuisioner = ResponKuisioner::where('alumni_id', $alumni->id)->first();
 
         // cek katagori_id apa saja yang ada di tabel respon_kuisioner
@@ -70,6 +73,5 @@ class Dashboard extends Component
 
         // pisahkan kategori_id yang belum ada di tabel respon_kuisioner
         $belumIsiKuisioner = KategoriKuisioner::whereNotIn('id', $kategoriIds)->get();
-
     }
 }

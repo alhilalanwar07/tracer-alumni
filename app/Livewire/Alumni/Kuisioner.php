@@ -46,18 +46,21 @@ class Kuisioner extends Component
 
         $alumniID = Alumni::where('user_id', auth()->id())->first()->id;
 
-        foreach ($validatedData['answers'] as $questionId => $answer) {
-            \App\Models\Jawaban::create([
-                'alumni_id' => $alumniID,
-                'kuisioner_id' => $questionId,
-                'jawaban' => is_array($answer) ? implode(',', $answer) : $answer,
-            ]);
-        }
+        \DB::transaction(function () use ($validatedData, $alumniID) {
+            foreach ($validatedData['answers'] as $questionId => $answer) {
+                \App\Models\Jawaban::create([
+                    'alumni_id' => $alumniID,
+                    'kuisioner_id' => $questionId,
+                    'jawaban' => is_array($answer) ? implode(',', $answer) : $answer,
+                ]);
+            }
 
-        \App\Models\ResponKuisioner::create([
-            'alumni_id' => $alumniID,
-            'tanggal_respon' => now(),
-        ]);
+            \App\Models\ResponKuisioner::create([
+                'alumni_id' => $alumniID,
+                'tanggal_respon' => now(),
+                'kategori_id' => KategoriKuisioner::where('nama_kategori', Alumni::where('user_id', auth()->id())->first()->keterangan)->first()->id,
+            ]);
+        });
 
         // jika berhasil
         $this->dispatch('tambahAlert', [

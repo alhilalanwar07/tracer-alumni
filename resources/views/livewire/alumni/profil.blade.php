@@ -9,6 +9,8 @@
         </div>
         <div class="col-12 col-md-12">
             <div class="row container-bordered">
+                @if(!$updatePasswordMode)
+
                 <!-- Profil Gambar dan Nama -->
                 <div class="col-12 col-md-4 text-center animate__animated animate__fadeInLeft profile-column">
                     <img src="{{ url('/') }}/{{ $alumni->foto ?? 'no_image.jpg' }}" class="rounded-circle mb-3 img-fluid" alt="Profile Picture" style="max-width: 150px;">
@@ -111,8 +113,9 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-12">
-                            <button class="btn  btn-custom btn-sm btn-block" wire:click="edit">Update Profile</button>
+                        <div class="col-12 ">
+                            <button class="btn  btn-custom btn-sm btn-block py-2 mr-2" wire:click="edit">Update Profile</button>
+                            <button class="btn  btn-danger btn-sm btn-block py-2" wire:click="editPassword">Update Password</button>
                         </div>
                     </div>
                 </div>
@@ -218,6 +221,32 @@
                             </div>
                             <div class="d-flex justify-content-between">
                                 <button type="submit" class="btn btn-sm btn-custom mt-4 mb-4">Update Profil</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                @endif
+                @else
+                <div class="col-12 col-md-12 animate__animated animate__fadeInUp details-column">
+                    <div class="row row-hover animated-delay px-4">
+                        <form wire:submit.prevent="updatePassword">
+                            @csrf
+
+                            <div class="mb-3">
+                                <label for="new_password" class="form-label">New Password</label>
+                                <input type="password" wire:model="new_password" id="new_password" class="form-control">
+                                @error('new_password') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="new_password_confirmation" class="form-label">Confirm New Password</label>
+                                <input type="password" wire:model="new_password_confirmation" id="new_password_confirmation" class="form-control">
+                                @error('new_password_confirmation') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+
+                            <div class="d-flex justify-content-between">
+                                <button class="btn btn-sm btn-danger mt-4 mb-4" wire:click="cancelUpdatePassword">Batal</button>
+                                <button type="submit" class="btn btn-sm btn-custom mt-4 mb-4">Update Password</button>
                             </div>
                         </form>
                     </div>

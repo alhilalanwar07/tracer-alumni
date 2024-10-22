@@ -14,7 +14,7 @@ class DataFakultas extends Component
     public $search = '';
     public $perpage = 10;
     public $selectedPerPage = 10;
-    public $nama, $fakultas_id;
+    public $nama, $fakultas_id, $dekan;
 
     public $modal = true;
 
@@ -38,6 +38,7 @@ class DataFakultas extends Component
     {
         return view('livewire.admin.data-fakultas', [
             'fakultas' => Fakultas::orderBy('created_at', 'DESC')->where('nama', 'like', '%'.$this->search.'%')->paginate($this->perpage),
+            'users' => \App\Models\User::where('role', 'dekan')->whereNotIn('id', Fakultas::pluck('user_id'))->get(),
         ])->layout('components.layouts.app', ['title' => 'Data Fakultas']);
     }
 
@@ -53,10 +54,12 @@ class DataFakultas extends Component
     {
         $this->validate([
             'nama' => 'required',
+            'dekan' => 'required',
         ]);
 
         Fakultas::create([
             'nama' => $this->nama,
+            'user_id' => $this->dekan,
         ]);
 
         // jika berhasil di tambah
@@ -75,6 +78,7 @@ class DataFakultas extends Component
         $fakultas = Fakultas::find($id);
         $this->fakultas_id = $fakultas->id;
         $this->nama = $fakultas->nama;
+        $this->dekan = $fakultas->user_id;
 
         $this->modal = true;
     }
@@ -85,6 +89,7 @@ class DataFakultas extends Component
             'nama' => 'required',
         ]);
 
+        // jika dekan tidak di isi
         Fakultas::find($this->fakultas_id)->update([
             'nama' => $this->nama,
         ]);

@@ -18,7 +18,77 @@
         </div>
     </div>
 
-    <div class="row">
+
+    <div class="card card-body border-0 shadow table-wrapper table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="border-gray-200" style="width: 5%">#</th>
+                    <th class="border-gray-200">Responden</th>
+                    <th class="border-gray-200">Tanggal Pengisian</th>
+                    <th class="border-gray-200" style="width: 10%">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($responses as $response)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $response->alumni->nama }} [{{ $response->alumni->nim }}]</td>
+                    <td>{{ $response->tanggal_respon }} [{{ Carbon\Carbon::parse($response->tanggal_respon)->diffForHumans() }}]
+                    </td>
+                    <td>
+                        <a href="#" class="btn btn-sm btn-info" wire:click="showResponse({{ $response->id }})" data-bs-toggle="modal" data-bs-target="#modalResponse">Lihat Detail</a>
+                        </a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <div class="mt-2">{{ $responses->links() }}</div>
+    </div>
+
+    {{-- modal --}}
+    <div wire:ignore.self class="modal fade" id="modalResponse" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalResponseLabel">Detail Kuisioner</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body ">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-nowrap">
+                            <thead>
+                                <tr>
+                                    <th class="border-gray-200" style="width: 5%">#</th>
+                                    <th class="border-gray-200">Pertanyaan</th>
+                                    <th class="border-gray-200">Jawaban</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($responseDetails as $responseDetail)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $responseDetail->kuisioner->pertanyaan }}</td>
+                                    <td class="fw-bold">{{ $responseDetail->jawaban }}</td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="3" class="text-center">Belum ada data kuisioner.</td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
         <div class="col-md-6">
             <div class="card border-0 shadow">
                 <div class="card-body">

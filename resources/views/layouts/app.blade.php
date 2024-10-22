@@ -103,7 +103,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="footer mt-auto py-3 animate__animated animate__fadeInUp">
+    <footer class="footer mt-auto py-3 animate__animated animate__fadeInUp" style="position: fixed; bottom: 0; width: 100%">
         <div class="container">
             <span>&copy; {{ date('Y') }} SIMPATIK. All rights reserved.</span>
         </div>
