@@ -26,12 +26,6 @@
     <meta property="twitter:description" content="{{ config('app.name') }}">
     <meta property="twitter:image" content="{{ url('/') }}">
 
-    <!-- Favicon -->
-    {{-- <link rel="apple-touch-icon" sizes="120x120" href="{{ url('/') }}/public/assets/img/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url('/') }}/public/assets/img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url('/') }}/public/assets/img/favicon/favicon-16x16.png">
-    <link rel="manifest" href="{{ url('/') }}/public/assets/img/favicon/site.webmanifest">
-    <link rel="mask-icon" href="{{ url('/') }}/public/assets/img/favicon/safari-pinned-tab.svg" color="#803D07FF"> --}}
     <link rel="apple-touch-icon" sizes="120x120" href="{{ url('/') }}/assets/img/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url('/') }}/assets/img/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url('/') }}/assets/img/favicon/favicon-16x16.png">
@@ -40,9 +34,6 @@
     <meta name="msapplication-TileColor" content="#803D07FF">
     <meta name="theme-color" content="#803D07FF">
 
-    {{-- <link type="text/css" href="{{ url('/') }}/public/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
-    <link type="text/css" href="{{ url('/') }}/public/vendor/notyf/notyf.min.css" rel="stylesheet">
-    <link type="text/css" href="{{ url('/') }}/public/css/volt.css" rel="stylesheet"> --}}
 
     <link type="text/css" href="{{ url('/') }}/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
     <link type="text/css" href="{{ url('/') }}/vendor/notyf/notyf.min.css" rel="stylesheet">
@@ -57,7 +48,7 @@
 
     <nav class="navbar navbar-dark navbar-theme-primary px-4 col-12 d-lg-none">
         <a class="navbar-brand me-lg-5" href="/home">
-            <img class="navbar-brand-dark" src="{{ url('/') }}/public/assets/img/brand/light.svg" alt="Volt logo" /> <img class="navbar-brand-light" src="{{ url('/') }}/public/assets/img/brand/dark.svg" alt="Volt logo" />
+            <img class="navbar-brand-dark" src="{{ url('/') }}/assets/img/favicon/favicon-32x32.png" alt="Simpatik" style="background-color: #f8f9fa; padding: 2px; border-radius: 2px;" /> <img class="navbar-brand-light" src="{{ url('/') }}/assets/img/favicon/favicon-32x32.png" alt="Simpatik" style="background-color: #f8f9fa; padding: 2px; border-radius: 2px;"/>
         </a>
         <div class="d-flex align-items-center">
             <button class="navbar-toggler d-lg-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +62,7 @@
             <div class="user-card d-flex d-md-none align-items-center justify-content-between justify-content-md-center pb-4">
                 <div class="d-flex align-items-center">
                     <div class="avatar-lg me-4">
-                        <img src="{{ url('/') }}/public/assets/img/team/profile-picture-3.jpg" class="card-img-top rounded-circle border-white" alt="Bonnie Green">
+                        <img src="{{ url('/') }}/assets/img/favicon/favicon-32x32.png" class="card-img-top rounded-circle border-white" alt="Simpatik" style="background-color: #f8f9fa; padding: 2px; border-radius: 2px;">
                     </div>
                     <div class="d-block">
                         <h2 class="h5 mb-3">Hi,
@@ -99,9 +90,9 @@
             <ul class="nav flex-column pt-3 pt-md-0">
                 <li class="nav-item">
                     <a href="/home" class="nav-link d-flex align-items-center">
-                        {{-- <span class="sidebar-icon">
-                            <img src="{{ url('/') }}/public/assets/img/brand/light.svg" height="20" width="20" alt="Volt Logo">
-                        </span> --}}
+                        <span class="sidebar-icon" style="background-color: #f8f9fa; padding: 5px; border-radius: 5px;">
+                            <img src="{{ url('/') }}/assets/img/favicon/favicon-32x32.png" height="20" width="20" alt="Simpatik">
+                        </span>
                         <span class="mt-1 ms-1 sidebar-text">SIMPATIK</span>
                     </a>
                 </li>
@@ -244,7 +235,7 @@
                 </li>
                 <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>
                 <li class="nav-item @if (request()->is('admin/manajemen-user')) active @endif">
-                    <a href="/admin/manajemen-user" wire:navigate class="nav-link d-flex align-items-center">
+                    <a href="/admin/manajemen-user" class="nav-link d-flex align-items-center">
                         <span class="sidebar-icon">
                             <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-14a3 3 0 11-2 5.5 3 3 0 012-5.5zm3 12a5 5 0 00-8 0h8z" clip-rule="evenodd"></path>
@@ -253,16 +244,6 @@
                         <span class="sidebar-text">Manajemen User </span>
                     </a>
                 </li>
-                {{-- <li class="nav-item @if (request()->is('profil')) active @endif">
-                    <a href="/profil" wire:navigate class="nav-link ">
-                        <span class="sidebar-icon">
-                            <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path>
-                            </svg>
-                        </span>
-                        <span class="sidebar-text">Profil</span>
-                    </a>
-                </li> --}}
                 <li class="nav-item">
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
@@ -299,7 +280,7 @@
                         <li class="nav-item dropdown ms-lg-3">
                             <a class="nav-link dropdown-toggle pt-1 px-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="media d-flex align-items-center">
-                                    <img class="avatar rounded-circle" alt="Image placeholder" src="{{ url('/') }}/public/assets/img/team/profile-picture-3.jpg">
+                                    <img class="avatar rounded-circle" alt="Image placeholder" src="{{ url('/') }}/assets/img/favicon/favicon-32x32.png" style="background-color: #f8f9fa; padding: 2px; border-radius: 2px;">
                                     <div class="media-body ms-2 text-dark align-items-center d-none d-lg-block">
                                         <span class="mb-0 font-small fw-bold text-gray-900">{{ Auth::check() ? Auth::user()->name : '' }}</span>
                                     </div>
@@ -315,12 +296,12 @@
                                 <div role="separator" class="dropdown-divider my-1"></div>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <button class="dropdown-item d-flex align-items-center" type="submit">
                                         <svg class="dropdown-icon text-danger me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                                         </svg>
                                         Logout
-                                    </a>
+                                    </button>
                                 </form>
                             </div>
                         </li>
@@ -342,16 +323,6 @@
         </footer>
     </main>
 
-    <!-- Core -->
-    {{-- <script src="{{ url('/') }}/public/vendor/@popperjs/core/dist/umd/popper.min.js"></script>
-    <script src="{{ url('/') }}/public/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="{{ url('/') }}/public/vendor/onscreen/dist/on-screen.umd.min.js"></script>
-    <script src="{{ url('/') }}/public/vendor/nouislider/distribute/nouislider.min.js"></script>
-    <script src="{{ url('/') }}/public/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
-    <script src="{{ url('/') }}/public/vendor/chartist/dist/chartist.min.js"></script>
-    <script src="{{ url('/') }}/public/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-    <script src="{{ url('/') }}/public/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
-    <script src="{{ url('/') }}/public/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script> --}}
     <script src="{{ url('/') }}/vendor/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="{{ url('/') }}/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="{{ url('/') }}/vendor/onscreen/dist/on-screen.umd.min.js"></script>
@@ -362,11 +333,7 @@
     <script src="{{ url('/') }}/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
     <script src="{{ url('/') }}/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
-    {{-- <script src="{{ url('/') }}/public/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
-    <script src="{{ url('/') }}/public/vendor/notyf/notyf.min.js"></script>
-    <script src="{{ url('/') }}/public/vendor/simplebar/dist/simplebar.min.js"></script> --}}
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-    {{-- <script src="{{ url('/') }}/public/assets/js/volt.js"></script> --}}
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="{{ url('/') }}/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
     <script src="{{ url('/') }}/vendor/notyf/notyf.min.js"></script>
     <script src="{{ url('/') }}/vendor/simplebar/dist/simplebar.min.js"></script>

@@ -30,6 +30,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/prodi', App\Livewire\Admin\DataProdi::class)->name('admin.prodi');
     Route::get('/alumni', App\Livewire\Admin\DataAlumni::class)->name('admin.alumni');
     Route::get('/periode-wisuda', App\Livewire\Admin\DataPeriode::class)->name('admin.periode');
+    Route::get('/laporan-grafik', App\Livewire\Admin\LaporanGrafik::class)->name('admin.laporan-grafik');
 
     Route::get('/kuisioner/belum-bekerja', AdminKuisionerBelumBekerja::class)->name('admin.kuisioner.belum-bekerja');
     Route::get('/kuisioner/sudah-bekerja', AdminKuisionerSudahBekerja::class)->name('admin.kuisioner.sudah-bekerja');
