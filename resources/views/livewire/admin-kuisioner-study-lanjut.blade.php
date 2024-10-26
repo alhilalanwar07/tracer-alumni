@@ -61,16 +61,16 @@
                             <thead>
                                 <tr>
                                     <th class="border-gray-200" style="width: 5%">#</th>
-                                    <th class="border-gray-200">Pertanyaan</th>
-                                    <th class="border-gray-200">Jawaban</th>
+                                    <th style="width: 55%" class="border-gray-200">Pertanyaan</th>
+                                    <th style="width: 40%" class="border-gray-200">Jawaban</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse($responseDetails as $responseDetail)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $responseDetail->kuisioner->pertanyaan }}</td>
-                                    <td class="fw-bold">{{ $responseDetail->jawaban }}</td>
+                                    <td class="text-wrap">{{ $responseDetail->kuisioner->pertanyaan }}</td>
+                                    <td class="text-wrap" class="fw-bold">{{ $responseDetail->jawaban }}</td>
                                 </tr>
                                 @empty
                                 <tr>

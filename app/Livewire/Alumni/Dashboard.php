@@ -4,16 +4,40 @@ namespace App\Livewire\Alumni;
 
 use App\Models\Alumni;
 use Livewire\Component;
+use Livewire\WithPagination;
 use App\Models\ResponKuisioner;
 use App\Models\KategoriKuisioner;
 
 class Dashboard extends Component
 {
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+
+    public $search;
+    public $perpage = 10;
+    public $selectedPerPage = 10;
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedPerpage()
+    {
+        $this->resetPage();
+    }
+
+    public function setPerPage($value)
+    {
+        $this->perpage = $value;
+        $this->resetPage();
+    }
+
     public function render()
     {
             return view('livewire.alumni.dashboard',[
                 'responses' => ResponKuisioner::where('alumni_id', Alumni::where('user_id', auth()->id())->first()->id)->get(),
-                'alumnis' => Alumni::orderBy('nama', 'asc')->get(),
+                'alumnis' => Alumni::orderBy('nama', 'asc')->paginate($this->perpage),
                 'alumni' => Alumni::where('user_id', auth()->id())->first(),
                 'isDataComplete' => $this->cekKelengkapanData(),
                 'dataDiri' => Alumni::where('user_id', auth()->id())->first(),
@@ -73,5 +97,10 @@ class Dashboard extends Component
 
         // pisahkan kategori_id yang belum ada di tabel respon_kuisioner
         $belumIsiKuisioner = KategoriKuisioner::whereNotIn('id', $kategoriIds)->get();
+    }
+
+    public function loadMore()
+    {
+        $this->perpage += 10;
     }
 }

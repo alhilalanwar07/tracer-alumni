@@ -28,14 +28,24 @@
 
     <div class="table-settings mb-4">
         <div class="row align-items-center justify-content-between">
+            {{-- <div class="col col-md-6 col-lg-3 col-xl-4">
+                <button class="btn btn-sm btn-success d-inline-flex align-items-cente text-white" data-bs-toggle="modal" data-bs-target="#modalImport">
+                    <svg class="icon icon-xs" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="35" height="100" viewBox="0 0 50 50">
+                        <path fill="#ffff" d="M30 26v9h-4.18c.12-.38.18-.78.18-1.2V26H30zM30 37v9H17c-1.65 0-3-1.35-3-3v-5h7.8c1.03 0 1.98-.37 2.71-1H30zM32 26H48V35H32zM32 37h16v6c0 1.65-1.35 3-3 3H32V37zM30 15v9h-4v-7.8c0-.42-.06-.82-.18-1.2H30zM32 15H48V24H32zM30 4v9h-5.49c-.73-.63-1.68-1-2.71-1H14V7c0-1.65 1.35-3 3-3H30zM48 7v6H32V4h13C46.65 4 48 5.35 48 7zM21.8 36H4.2C2.985 36 2 35.015 2 33.8V16.2C2 14.985 2.985 14 4.2 14h17.6c1.215 0 2.2.985 2.2 2.2v17.6C24 35.015 23.015 36 21.8 36zM7.968 19l3.494 5.978L7.631 31h2.863l2.521-4.716L15.548 31h2.821L14.6 25l3.685-6H15.61l-2.455 4.505L10.832 19H7.968z"></path>
+                    </svg>
+                    Import Excel
+                </button>
+            </div> --}}
             <div class="col col-md-6 col-lg-3 col-xl-4">
                 <div class="input-group me-2 me-lg-3 fmxw-400">
+
                     <span class="input-group-text">
                         <svg class="icon icon-xs" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
                         </svg>
                     </span>
                     <input wire:model.live="search" type="text" class="form-control" placeholder="Search...">
+
                 </div>
             </div>
         </div>
@@ -67,7 +77,7 @@
                         </a>
                     </td>
                     <td>
-                            <img src="{{ asset($alumniItem->foto) }}" alt="Foto" style="width: 50px; height: 50px; object-fit: cover;" class="rounded">
+                        <img src="{{ asset($alumniItem->foto) }}" alt="Foto" style="width: 50px; height: 50px; object-fit: cover;" class="rounded">
                     </td>
                     <td><span class="fw-normal">{{ $alumniItem->nama }} <br> {{ $alumniItem->nim }}</span> <br> <span class="badge bg-primary">{{ $alumniItem->keterangan }}</span></td>
                     <td><span class="fw-normal">{{ $alumniItem->tanggal_lahir }} <br> {{ $alumniItem->jenis_kelamin }} <br> {{ $alumniItem->agama }}</span></td>
@@ -78,7 +88,7 @@
                     <td><span class="fw-normal">{{ $alumniItem->wisuda->angkatan }} <br> {{ $alumniItem->wisuda->tanggal }}</span></td>
                     <td><span class="fw-normal">{{ $alumniItem->prodi->nama }}</span></td>
                     <td class="text-end">
-                        <a href="#" class="btn btn-info btn-sm btn-rounded" wire:click.prevent="edit({{ $alumniItem->id }})" data-bs-toggle="modal" data-bs-target="#modalEdit">Edit</a>
+                        {{-- <a href="#" class="btn btn-info btn-sm btn-rounded" wire:click.prevent="edit({{ $alumniItem->id }})" data-bs-toggle="modal" data-bs-target="#modalEdit">Edit</a> --}}
                         <a href="#" wire:click.prevent="hapus({{ $alumniItem->id }})" class="btn btn-danger btn-sm btn-rounded">Delete</a>
                     </td>
                 </tr>
@@ -168,7 +178,7 @@
                                 <option value="">Pilih Tahun Masuk</option>
                                 @for ($year = 2015; $year <= now()->year; $year++)
                                     <option value="{{ $year }}">{{ $year }}</option>
-                                @endfor
+                                    @endfor
                             </select>
                         </div>
                         <!-- Keterangan -->
@@ -187,7 +197,7 @@
                             <select class="form-control @error('wisuda_id') is-invalid @enderror" wire:model="wisuda_id">
                                 <option value="">Pilih Wisuda</option>
                                 @foreach($wisuda as $wisuda)
-                                    <option value="{{ $wisuda->id }}">{{ $wisuda->angkatan }} - {{ $wisuda->tanggal }}</option>
+                                <option value="{{ $wisuda->id }}">{{ $wisuda->angkatan }} - {{ $wisuda->tanggal }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -197,7 +207,7 @@
                             <select class="form-control @error('prodi_id') is-invalid @enderror" wire:model="prodi_id">
                                 <option value="">Pilih Prodi</option>
                                 @foreach($prodi as $prodi)
-                                    <option value="{{ $prodi->id }}">{{ $prodi->nama }}</option>
+                                <option value="{{ $prodi->id }}">{{ $prodi->nama }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -238,6 +248,31 @@
                         <button type="button" class="btn btn-info" wire:click="update()" @if($modal) data-bs-dismiss="modal" @endif>Update</button>
                         <button type="button" class="btn btn-link text-gray-600 ms-auto" data-bs-dismiss="modal">Close</button>
                     </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div wire:ignore.self class="modal fade" id="modalImport" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="h6 modal-title">Import Data Alumni</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                    @csrf
+                    <form wire:submit.prevent="importAlumni" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            <div class="form-group mb-3">
+                                <label for="file" class="form-label">Upload File Alumni (Excel/CSV):</label>
+                                <input type="file" id="file" class="form-control @error('file') is-invalid @enderror" wire:model="file" accept=".xlsx, .xls, .csv">
+                                @error('file') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-info" @if($modal) data-bs-dismiss="modal" @endif>Import</button>
+                            <button type="button" class="btn btn-link text-gray-600 ms-auto" data-bs-dismiss="modal">Close</button>
+                        </div>
                 </form>
             </div>
         </div>

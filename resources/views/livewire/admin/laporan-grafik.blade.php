@@ -53,8 +53,8 @@
                         <thead>
                             <tr>
                                 <th width="5%">No</th>
-                                <th>Pertanyaan</th>
-                                <th>Menjawab / Jawaban</th>
+                                <th width="55%">Pertanyaan</th>
+                                <th width="40%">Menjawab / Jawaban</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,10 +62,16 @@
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td class="text-wrap">{{ $data['pertanyaan'] }}</td>
-                                <td>
+                                <td class="text-wrap">
+                                    @if ($data['tipe_pertanyaan'] == 'text')
+                                    @foreach ($data['jawaban_counts'] as $jawaban)
+                                    <span>{{ $jawaban }}</span> <br>
+                                    @endforeach
+                                @else
                                     @foreach ($data['jawaban_counts'] as $pilihan => $count)
                                     <span class="badge bg-primary">{{ $count }}</span> {{ $pilihan }} <br>
                                     @endforeach
+                                @endif
                                 </td>
                             </tr>
                             @endforeach
@@ -85,8 +91,8 @@
                         <thead>
                             <tr>
                                 <th width="5%">No</th>
-                                <th>Pertanyaan</th>
-                                <th>Menjawab / Jawaban</th>
+                                <th width="55%">Pertanyaan</th>
+                                <th width="40%">Menjawab / Jawaban</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -94,10 +100,16 @@
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td class="text-wrap">{{ $data['pertanyaan'] }}</td>
-                                <td>
+                                <td class="text-wrap">
+                                     @if ($data['tipe_pertanyaan'] == 'text')
+                                    @foreach ($data['jawaban_counts'] as $jawaban)
+                                    <span>{{ $jawaban }}</span> <br>
+                                    @endforeach
+                                @else
                                     @foreach ($data['jawaban_counts'] as $pilihan => $count)
                                     <span class="badge bg-primary">{{ $count }}</span> {{ $pilihan }} <br>
                                     @endforeach
+                                @endif
                                 </td>
                             </tr>
                             @endforeach
@@ -118,8 +130,8 @@
                         <thead>
                             <tr>
                                 <th width="5%">No</th>
-                                <th>Pertanyaan</th>
-                                <th>Menjawab / Jawaban</th>
+                                <th width="55%">Pertanyaan</th>
+                                <th width="40%">Menjawab / Jawaban</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -128,9 +140,15 @@
                                 <td>{{ $index + 1 }}</td>
                                 <td class="text-wrap">{{ $data['pertanyaan'] }}</td>
                                 <td>
+                                    @if ($data['tipe_pertanyaan'] == 'text')
+                                    @foreach ($data['jawaban_counts'] as $jawaban)
+                                    <span>{{ $jawaban }}</span> <br>
+                                    @endforeach
+                                @else
                                     @foreach ($data['jawaban_counts'] as $pilihan => $count)
                                     <span class="badge bg-primary">{{ $count }}</span> {{ $pilihan }} <br>
                                     @endforeach
+                                @endif
                                 </td>
                             </tr>
                             @endforeach

@@ -38,6 +38,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+
     {{-- icon font awasome free --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
@@ -45,7 +46,7 @@
     <link type="text/css" href="{{ url('/') }}/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
 
     <!-- style_alumni-->
-    <link rel="stylesheet" href="{{ url('/') }}/style_alumni.css">
+    <link rel="stylesheet" href="{{ url('/') }}/style_landing.css">
 
     @livewireStyles()
 </head>
@@ -53,18 +54,17 @@
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light  fixed-top shadow-sm animate__animated animate__fadeInDown mb-4" style="background-color: #fffaf0;">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top animate__animated animate__fadeInDown mb-4">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand " href="/" style="background-color: #fff; padding: 10px 20px; border-radius: 8px;">
                 <img src="{{ url('/') }}/assets/img/favicon/apple-touch-icon.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
                 SIMPATIK
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse ms-auto" id="navbarNav">
                 @auth
-
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -86,7 +86,7 @@
                 @guest
                 <ul class="navbar-nav ms-3 ms-auto">
                     <li class="nav-item d-flex">
-                        <a class="btn btn-sm btn-custom text-white fw-bold px-4 " href="{{ route('login') }}">
+                        <a class="btn btn-sm btn-login fw-bold px-4 " href="{{ route('login') }}" style="padding: 10px 20px; border-radius: 8px;">
                             <i class="fas fa-sign-in-alt"></i> &nbsp;
                             Login</a>
                     </li>
@@ -96,20 +96,20 @@
         </div>
     </nav>
 
-
     <!-- Main Content -->
-    <div class="container my-5" style="margin-top: 100px !important;">
         {{ $slot }}
-    </div>
+
 
     <!-- Footer -->
-    <footer class="footer mt-auto py-3 animate__animated animate__fadeInUp" style="position: fixed; bottom: 0; width: 100%">
+    <footer class="footer mt-auto py-3 animate__animated animate__fadeInUp">
         <div class="container">
             <span>&copy; {{ date('Y') }} SIMPATIK. All rights reserved.</span>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Vendor JS -->
     <script src="{{ url('/') }}/vendor/onscreen/dist/on-screen.umd.min.js"></script>
     <!-- Smooth scroll -->
@@ -128,8 +128,10 @@
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-    @livewireScripts()
     <script src="{{ url('/') }}/scripts_login.js"></script>
+
+
+    @livewireScripts()
 
 </body>
 

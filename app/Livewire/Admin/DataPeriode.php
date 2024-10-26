@@ -37,8 +37,8 @@ class DataPeriode extends Component
     public function render()
     {
         return view('livewire.admin.data-periode', [
-            'wisuda' => Wisuda::orderBy('created_at', 'DESC')
-                ->where('angkatan', 'like', '%'.$this->search.'%')
+            'wisuda' => Wisuda::where('angkatan', 'like', '%'.$this->search.'%')
+                ->orderBy('tanggal', 'desc')
                 ->paginate($this->perpage),
         ])->layout('components.layouts.app', ['title' => 'Data Wisuda']);
     }

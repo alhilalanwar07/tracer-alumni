@@ -12,6 +12,8 @@ use App\Models\KategoriKuisioner;
 class AdminKuisionerStudyLanjut extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+
 
     protected $kuisioners;
     public $kategori_id;

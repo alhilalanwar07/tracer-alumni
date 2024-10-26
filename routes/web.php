@@ -7,17 +7,9 @@ use App\Livewire\AdminKuisionerBelumBekerja;
 use App\Livewire\AdminKuisionerSudahBekerja;
 
 // disable register, reset password
-Auth::routes(['register' => false, 'reset' => false]);
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Auth::routes(['register' => false, 'reset' => false, 'verify' => false]);
 
 Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-// livewire
-// profil
 
 Route::middleware(['admin'])->group(function () {
     Route::get('/profil', App\Livewire\Profil::class)->name('profil');
@@ -46,4 +38,5 @@ Route::middleware(['alumni'])->group(function () {
 });
 
 Route::get('/alumni/register', App\Livewire\Alumni\Register::class)->name('alumni.register');
-
+// landing page
+Route::get('/', App\Livewire\LandingPage::class)->name('landing-page');

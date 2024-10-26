@@ -95,6 +95,12 @@ class LaporanGrafik extends Component
             ->get();
 
         foreach ($kuisionerData as $kuisioner) {
+            if ($kuisioner->tipe_pertanyaan == 'text') {
+            $jawabanCountArray = $jawabanCounts
+                ->where('kuisioner_id', $kuisioner->id)
+                ->pluck('jawaban')
+                ->toArray();
+            } else {
             $pilihanJawaban = explode(',', $kuisioner->pilihan_jawaban);
             $jawabanCountArray = [];
 
@@ -103,6 +109,7 @@ class LaporanGrafik extends Component
                 ->where('kuisioner_id', $kuisioner->id)
                 ->where('jawaban', $pilihan)
                 ->sum('total') ?? 0;
+            }
             }
 
             $kuisioner->jawaban_counts = $jawabanCountArray;
@@ -121,6 +128,12 @@ class LaporanGrafik extends Component
             ->get();
 
         foreach ($kuisionerDataSudahBekerja as $kuisioner) {
+            if ($kuisioner->tipe_pertanyaan == 'text') {
+            $jawabanCountArray = $jawabanCountsSudahBekerja
+                ->where('kuisioner_id', $kuisioner->id)
+                ->pluck('jawaban')
+                ->toArray();
+            } else {
             $pilihanJawaban = explode(',', $kuisioner->pilihan_jawaban);
             $jawabanCountArray = [];
 
@@ -129,6 +142,7 @@ class LaporanGrafik extends Component
                 ->where('kuisioner_id', $kuisioner->id)
                 ->where('jawaban', $pilihan)
                 ->sum('total') ?? 0;
+            }
             }
 
             $kuisioner->jawaban_counts = $jawabanCountArray;
@@ -148,6 +162,12 @@ class LaporanGrafik extends Component
             ->get();
 
         foreach ($kuisionerDataStudyLanjut as $kuisioner) {
+            if ($kuisioner->tipe_pertanyaan == 'text') {
+            $jawabanCountArray = $jawabanCountsStudyLanjut
+                ->where('kuisioner_id', $kuisioner->id)
+                ->pluck('jawaban')
+                ->toArray();
+            } else {
             $pilihanJawaban = explode(',', $kuisioner->pilihan_jawaban);
             $jawabanCountArray = [];
 
@@ -156,6 +176,7 @@ class LaporanGrafik extends Component
                 ->where('kuisioner_id', $kuisioner->id)
                 ->where('jawaban', $pilihan)
                 ->sum('total') ?? 0;
+            }
             }
 
             $kuisioner->jawaban_counts = $jawabanCountArray;
@@ -175,7 +196,7 @@ class LaporanGrafik extends Component
             'kuisionerData' => $this->kuisionerData,
             'sudahBekerja' => $this->sudahBekerja,
             'studyLanjut' => $this->studyLanjut,
-            
+
 
         ])->layout('components.layouts.app', ['title' => 'Laporan & Grafik']);
     }

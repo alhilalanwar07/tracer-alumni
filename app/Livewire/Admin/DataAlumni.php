@@ -8,10 +8,14 @@ use App\Models\Alumni;
 use App\Models\Wisuda;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Hash;
+use App\Imports\AlumnisImport as AlumniImportFile;
 
 class DataAlumni extends Component
 {
-    use WithPagination;
+    use WithPagination, WithFileUploads;
     protected $paginationTheme = 'bootstrap';
 
     public $search = '';
@@ -33,6 +37,8 @@ class DataAlumni extends Component
     public $user_id;
     public $wisuda_id;
     public $prodi_id, $alumni_id;
+
+    public $file;
 
     public $modal = true;
 
@@ -82,6 +88,8 @@ class DataAlumni extends Component
         $this->wisuda_id = null;
         $this->prodi_id = null;
         $this->alumni_id = null;
+
+        $this->file = null;
 
         $this->modal = false;
     }
@@ -264,5 +272,52 @@ class DataAlumni extends Component
             'type'      => 'success',
             'timeout'   => 1000
         ]);
+    }
+
+
+    public function importAlumni()
+    {
+        $validator = \Validator::make([
+            'file' => 'required',
+        ],[
+            'file.required' => 'File tidak boleh kosong',
+            'file.mimes' => 'File harus berupa file Excel/CSV',
+        ]);
+
+        if ($validator->fails()) {
+            $this->dispatch('updateAlertToast', [
+                'title'     => 'Import data gagal',
+                'text'      => $validator->errors()->first(),
+                'type'      => 'error',
+                'timeout'   => 3000
+            ]);
+            return;
+        }
+
+        $filePath = $this->file->getRealPath();
+
+        try {
+            // Gunakan Excel::import untuk memproses data dari file Excel/CSV
+            Excel::import(new AlumniImportFile, $filePath);
+
+            // Jika berhasil di import
+            $this->dispatch('tambahAlert', [
+            'title'     => 'Import data berhasil',
+            'text'      => 'Data Alumni Berhasil Diimport',
+            'type'      => 'success',
+            'timeout'   => 1000
+            ]);
+
+            $this->resetInput();
+        } catch (\Exception $e) {
+            // Jika terjadi kesalahan saat import
+            $this->dispatch('updateAlertToast', [
+            'title'     => 'Import data gagal',
+            'text'      => $e->getMessage(),
+            'type'      => 'error',
+            'timeout'   => 3000
+            ]);
+        }
+
     }
 }

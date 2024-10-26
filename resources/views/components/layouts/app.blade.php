@@ -7,7 +7,7 @@
     <title>{{ $title ?? config('app.name') }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="title" content="{{ config('app.name') }}">
-    <meta name="author" content="Themesberg">
+    <meta name="author" content="FTI USN Kolaka">
     <meta name="description" content="{{ config('app.name') }}">
     <meta name="keywords" content="sistem, informasi, tracer, alumni, fti usn kolaka" />
     <link rel="canonical" href="{{ url('/') }}">
@@ -48,7 +48,8 @@
 
     <nav class="navbar navbar-dark navbar-theme-primary px-4 col-12 d-lg-none">
         <a class="navbar-brand me-lg-5" href="/home">
-            <img class="navbar-brand-dark" src="{{ url('/') }}/assets/img/favicon/favicon-32x32.png" alt="Simpatik" style="background-color: #f8f9fa; padding: 2px; border-radius: 2px;" /> <img class="navbar-brand-light" src="{{ url('/') }}/assets/img/favicon/favicon-32x32.png" alt="Simpatik" style="background-color: #f8f9fa; padding: 2px; border-radius: 2px;"/>
+            <img class="navbar-brand-dark" src="{{ url('/') }}/assets/img/favicon/favicon-32x32.png" alt="Simpatik" style="background-color: #f8f9fa; padding: 2px; border-radius: 2px;" />
+            <img class="navbar-brand-light" src="{{ url('/') }}/assets/img/favicon/favicon-32x32.png" alt="Simpatik" style="background-color: #f8f9fa; padding: 2px; border-radius: 2px;" />
         </a>
         <div class="d-flex align-items-center">
             <button class="navbar-toggler d-lg-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -171,9 +172,9 @@
                             </svg>
                         </span>
                     </a>
-                    <div class="collapse" id="kuisionerSubmenu">
+                    <div class="collapse @if (request()->is('kuisioner/*')) show @endif" id="kuisionerSubmenu">
                         <ul class="nav flex-column ">
-                            <li class="nav-item">
+                            <li class="nav-item @if (request()->is('kuisioner/belum-bekerja')) active @endif">
                                 <a class="nav-link" href="/kuisioner/belum-bekerja">
                                     <span class="sidebar-text " style="margin-left:40px">
                                         <svg class="icon icon-xs me-2" fill="#FFFFFFFF" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 333.917 333.917" xml:space="preserve">
@@ -186,7 +187,7 @@
                                         Belum Bekerja</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item @if (request()->is('kuisioner/sudah-bekerja')) active @endif">
                                 <a class="nav-link" href="/kuisioner/sudah-bekerja">
                                     <span class="sidebar-text" style="margin-left:40px">
                                         <svg class="icon icon-xs me-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -203,7 +204,7 @@
                                         Sudah Bekerja</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item @if (request()->is('kuisioner/study-lanjut')) active @endif">
                                 <a class="nav-link" href="/kuisioner/study-lanjut">
                                     <span class="sidebar-text" style="margin-left:40px">
 
@@ -221,7 +222,7 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item @if (request()->is('laporan-grafik')) active @endif">
                     <a href="/laporan-grafik" class="nav-link d-flex justify-content-between">
                         <span>
                             <span class="sidebar-icon">
@@ -264,6 +265,7 @@
                     <div class="d-flex align-items-center">
                         <!-- Search form -->
                         <form class="navbar-search form-inline" id="navbar-search-main">
+                            @csrf
                             <div class="input-group input-group-merge search-bar">
                                 <span class="input-group-text" id="topbar-addon">
                                     <svg class="icon icon-xs" x-description="Heroicon name: solid/search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -333,7 +335,7 @@
     <script src="{{ url('/') }}/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
     <script src="{{ url('/') }}/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="{{ url('/') }}/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
     <script src="{{ url('/') }}/vendor/notyf/notyf.min.js"></script>
     <script src="{{ url('/') }}/vendor/simplebar/dist/simplebar.min.js"></script>

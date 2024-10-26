@@ -28,3 +28,27 @@ document.querySelectorAll(".login-form input").forEach(input => {
         }
     });
 });
+
+
+$(window).scroll(function () {
+    if ($(window).scrollTop() > 50) {
+      $(".navbar").addClass("scrolled");
+    } else {
+      $(".navbar").removeClass("scrolled");
+    }
+  });
+
+  // Intersection Observer for animate-in-out elements
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      } else {
+        entry.target.classList.remove("visible");
+      }
+    });
+  });
+
+  document.querySelectorAll(".animate-in-out").forEach((element) => {
+    observer.observe(element);
+  });

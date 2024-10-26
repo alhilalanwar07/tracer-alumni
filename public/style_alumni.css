@@ -53,6 +53,24 @@ body {
     background-color: #FF5733;
 }
 
+.btn-loadMore {
+    background-color: transparent;
+    color: #FF5733;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    /* text-decoration: underline; */
+    border: 2px solid #FF5733;
+}
+
+.btn-loadMore:hover {
+    color: #ffffff;
+    background-color: #FF5733;
+    text-decoration: none;
+}
+
 /* Gaya Gambar Profil */
 .img-fluid {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -67,6 +85,7 @@ body {
 .name-title {
     background: linear-gradient(45deg, #f39c12, #d35400);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
